@@ -4,22 +4,30 @@ var timeEl = document.querySelector(".time");
 // Selects element by id
 var mainEl = document.getElementById("main");
 
-var secondsLeft = 10;
 
-function setTime() {
-  // Sets interval in variable
-  var timerInterval = setInterval(function() {
+function countdown() {
+  var secondsLeft = 30;
+
+ // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
+ var timeInterval = setInterval(function () {
+  // As long as the `timeLeft` is greater than 1
+  if (secondsLeft > 1) {
+    // Set the `textContent` of `timerEl` to show the remaining seconds
+    timeeEl.textContent = timeLeft + ' seconds remaining';
+    // Decrement `timeLeft` by 1
     secondsLeft--;
-    timeEl = secondsLeft;
+  } else if (timeLeft === 1) {
+    // When `timeLeft` is equal to 1, rename to 'second' instead of 'seconds'
+    timerEl.textContent = timeLeft + ' second remaining';
+    timeLeft--;
+  } else {
+    // Once `timeLeft` gets to 0, set `timerEl` to an empty string
+    timeEl.textContent = '';
+    // Use `clearInterval()` to stop the timer
+    clearInterval(timeInterval);
+  }
+}, 1000);
 
-    if(secondsLeft === 0) {
-      // Stops execution of action at set interval
-      clearInterval(timerInterval);
-  
-    }
-console.log(setTime);
-  }, 1000);
-}
 
 
 
@@ -103,28 +111,28 @@ console.log(setTime);
     slides[n].classList.add('active-slide');
     currentSlide = n;
     if(currentSlide === 0){
-      previousButton.style.display = 'none';
+      startButton.style.display = 'inline-block';
     }
     else{
-      previousButton.style.display = 'inline-block';
+      startButton.style.display = 'inline-block';
     }
     if(currentSlide === slides.length-1){
-      nextButton.style.display = 'none';
+      //nextButton.style.display = 'none';
       submitButton.style.display = 'inline-block';
     }
     else{
-      nextButton.style.display = 'inline-block';
+      //nextButton.style.display = 'inline-block';
       submitButton.style.display = 'none';
     }
   }
 
-  function showNextSlide() {
+  /*function showNextSlide() {
     showSlide(currentSlide + 1);
   }
 
-  function showPreviousSlide() {
+  //function showPreviousSlide() {
     showSlide(currentSlide - 1);
-  }
+  }*/
 
   // Variables
   const quizContainer = document.getElementById('quiz');
@@ -163,21 +171,22 @@ console.log(setTime);
 
   // Kick things off
   buildQuiz();
-  setTime();
+  countdown();
 
   // Pagination
-  const previousButton = document.getElementById("previous");
-  const nextButton = document.getElementById("next");
+  //const previousButton = document.getElementById("previous");
+  //const nextButton = document.getElementById("next");
   const slides = document.querySelectorAll(".slide");
   const startButton = document.getElementById("start");
   let currentSlide = 0;
 
   // Show the first slide
-  showSlide(currentSlide);
+ // showSlide(currentSlide);
 
   // Event listeners
+  startButton.addEventListener('click', buildQuiz);
   submitButton.addEventListener('click', showResults);
-  previousButton.addEventListener("click", showPreviousSlide);
-  nextButton.addEventListener("click", showNextSlide);
+  //previousButton.addEventListener("click", showPreviousSlide);
+  //nextButton.addEventListener("click", showNextSlide);
   
-})();
+})()};
